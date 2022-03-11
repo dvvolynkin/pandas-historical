@@ -1,55 +1,3 @@
-
-# Python Project Template
-
-A low dependency and really simple to start project template for Python Projects.
-
-See also 
-- [Flask-Project-Template](https://github.com/rochacbruno/flask-project-template/) for a full feature Flask project including database, API, admin interface, etc.
-- [FastAPI-Project-Template](https://github.com/rochacbruno/fastapi-project-template/) The base to start an openapi project featuring: SQLModel, Typer, FastAPI, JWT Token Auth, Interactive Shell, Management Commands.
-
-### HOW TO USE THIS TEMPLATE
-
-> **DO NOT FORK** this is meant to be used from **[Use this template](https://github.com/rochacbruno/python-project-template/generate)** feature.
-
-1. Click on **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**
-3. Give a name to your project  
-   (e.g. `my_awesome_project` recommendation is to use all lowercase and underscores separation for repo names.)
-3. Wait until the first run of CI finishes  
-   (Github Actions will process the template and commit to your new repo)
-4. If you want [codecov](https://about.codecov.io/sign-up/) Reports and Automatic Release to [PyPI](https://pypi.org)  
-  On the new repository `settings->secrets` add your `PIPY_API_TOKEN` and `CODECOV_TOKEN` (get the tokens on respective websites)
-4. Read the file [CONTRIBUTING.md](CONTRIBUTING.md)
-5. Then clone your new project and happy coding!
-
-> **NOTE**: **WAIT** until first CI run on github actions before cloning your new project.
-
-### What is included on this template?
-
-- 🖼️ Templates for starting multiple application types:
-  * **Basic low dependency** Python program (default) [use this template](https://github.com/rochacbruno/python-project-template/generate)
-  * **Flask** with database, admin interface, restapi and authentication [use this template](https://github.com/rochacbruno/flask-project-template/generate).
-  **or Run `make init` after cloning to generate a new project based on a template.**
-- 📦 A basic [setup.py](setup.py) file to provide installation, packaging and distribution for your project.  
-  Template uses setuptools because it's the de-facto standard for Python packages, you can run `make switch-to-poetry` later if you want.
-- 🤖 A [Makefile](Makefile) with the most useful commands to install, test, lint, format and release your project.
-- 📃 Documentation structure using [mkdocs](http://www.mkdocs.org)
-- 💬 Auto generation of change log using **gitchangelog** to keep a HISTORY.md file automatically based on your commit history on every release.
-- 🐋 A simple [Containerfile](Containerfile) to build a container image for your project.  
-  `Containerfile` is a more open standard for building container images than Dockerfile, you can use buildah or docker with this file.
-- 🧪 Testing structure using [pytest](https://docs.pytest.org/en/latest/)
-- ✅ Code linting using [flake8](https://flake8.pycqa.org/en/latest/)
-- 📊 Code coverage reports using [codecov](https://about.codecov.io/sign-up/)
-- 🛳️ Automatic release to [PyPI](https://pypi.org) using [twine](https://twine.readthedocs.io/en/latest/) and github actions.
-- 🎯 Entry points to execute your program using `python -m <pandas_historical>` or `$ pandas_historical` with basic CLI argument parsing.
-- 🔄 Continuous integration using [Github Actions](.github/workflows/) with jobs to lint, test and release your project on Linux, Mac and Windows environments.
-
-> Curious about architectural decisions on this template? read [ABOUT_THIS_TEMPLATE.md](ABOUT_THIS_TEMPLATE.md)  
-> If you want to contribute to this template please open an [issue](https://github.com/rochacbruno/python-project-template/issues) or fork and send a PULL REQUEST.
-
-[❤️ Sponsor this project](https://github.com/sponsors/rochacbruno/)
-
-<!--  DELETE THE LINES ABOVE THIS AND WRITE YOUR PROJECT README BELOW -->
-
 ---
 # pandas_historical
 
@@ -66,19 +14,112 @@ pip install pandas_historical
 
 ## Usage
 
-```py
-from pandas_historical import BaseClass
-from pandas_historical import base_function
+```python
+import pandas as pd
 
-BaseClass().base_method()
-base_function()
+currencies_scraping = pd.DataFrame([
+    {
+        'date': '2022-02-21',
+        'key': 'DOLLAR',
+        'value': 78,
+        'scraping_id': 123
+    },
+    {
+        'date': '2022-02-21',
+        'key': 'EURO',
+        'value': 87,
+        'scraping_id': 123
+    },
+    {
+        'date': '2022-02-28',
+        'key': 'DOLLAR',
+        'value': 105,
+        'scraping_id': 124
+    },
+    {
+        'date': '2022-03-07',
+        'key': 'EURO',
+        'value': 139,
+        'scraping_id': 125
+    },
+    {
+        'date': '2022-03-07',
+        'key': 'EURO',
+        'value': 148,
+        'scraping_id': 125
+    }
+])
+currencies_scraping
 ```
+|    | date       | key    |   value |   scraping_id |
+|---:|:-----------|:-------|--------:|--------------:|
+|  0 | 2022-02-21 | DOLLAR |      78 |           123 |
+|  1 | 2022-02-21 | EURO   |      87 |           123 |
+|  2 | 2022-02-28 | DOLLAR |     105 |           124 |
+|  3 | 2022-03-07 | EURO   |     139 |           125 |
+|  4 | 2022-03-07 | EURO   |     148 |           125 |
 
-```bash
-$ python -m pandas_historical
-#or
-$ pandas_historical
+```python
+from pandas_historical import make_historical_df
+
+historical_df = make_historical_df(currencies_scraping)
+historical_df
 ```
+|    | date       | key    |   value |   scraping_id |
+|---:|:-----------|:-------|--------:|--------------:|
+|  0 | 2022-02-21 | DOLLAR |      78 |           123 |
+|  1 | 2022-02-28 | DOLLAR |     105 |           124 |
+|  2 | 2022-02-21 | EURO   |      87 |           123 |
+|  3 | 2022-03-07 | EURO   |     139 |           125 |
+|  4 | 2022-03-07 | EURO   |     148 |           125 |
+
+```python
+from pandas_historical import update_historical_df
+new_values = pd.DataFrame([
+    {
+        'date': '2022-03-11',
+        'key': 'DOLLAR',
+        'value': 113,
+        'scraping_id': 127
+    },
+    {
+        'date': '2022-03-11',
+        'key': 'EURO',
+        'value': 144,
+        'scraping_id': 127
+    }
+])
+historical_df = update_historical_df(
+    historical_df, new_values
+)
+historical_df
+```
+|    | date       | key    |   value |   scraping_id |
+|---:|:-----------|:-------|--------:|--------------:|
+|  0 | 2022-02-21 | DOLLAR |      78 |           123 |
+|  1 | 2022-02-28 | DOLLAR |     105 |           124 |
+|  2 | 2022-03-11 | DOLLAR |     113 |           127 |
+|  3 | 2022-02-21 | EURO   |      87 |           123 |
+|  4 | 2022-03-07 | EURO   |     139 |           125 |
+|  5 | 2022-03-07 | EURO   |     148 |           125 |
+|  6 | 2022-03-11 | EURO   |     144 |           127 |
+
+```python
+from pandas_historical import get_history_state
+get_history_state(historical_df)
+```
+|    | date                | key    |   value |   scraping_id |
+|---:|:--------------------|:-------|--------:|--------------:|
+|  2 | 2022-03-11 00:00:00 | DOLLAR |     113 |           127 |
+|  6 | 2022-03-11 00:00:00 | EURO   |     144 |           127 |
+
+```python
+get_history_state(historical_df, state_date='2022-03-07')
+```
+|    | date                | key    |   value |   scraping_id |
+|---:|:--------------------|:-------|--------:|--------------:|
+|  1 | 2022-02-28 00:00:00 | DOLLAR |     105 |           124 |
+|  4 | 2022-03-07 00:00:00 | EURO   |     139 |           125 |
 
 ## Development
 
