@@ -77,8 +77,8 @@ currencies_scraping = pd.DataFrame([
         'scraping_id': 124
     },
     {
-        'date': '2022-03-07',
-        'key': 'EURO',
+        'date': '2022-03-06',
+        'key': 'DOLLAR',
         'value': 139,
         'scraping_id': 125
     },
@@ -101,7 +101,7 @@ currencies_scraping
 |  5 | 2022-02-21 | EURO   |      87 |           123 |
 |  6 | 2022-02-22 | DOLLAR |      78 |           124 |
 |  7 | 2022-02-28 | DOLLAR |     105 |           124 |
-|  8 | 2022-03-07 | EURO   |     139 |           125 |
+|  8 | 2022-03-06 | DOLLAR |     139 |           125 |
 |  9 | 2022-03-07 | EURO   |     148 |           125 |
 
 ### Now let's apply pandas_historical to it
@@ -123,7 +123,7 @@ Take a look at. Some of the rows is missing.
 |  0 | 2022-02-18 | DOLLAR |      78 |           123 |
 |  1 | 2022-02-28 | DOLLAR |     105 |           124 |
 |  2 | 2022-02-21 | EURO   |      87 |           123 |
-|  3 | 2022-03-07 | EURO   |     139 |           125 |
+|  3 | 2022-03-06 | DOLLAR |     139 |           125 |
 |  4 | 2022-03-07 | EURO   |     148 |           125 |
 
 Now let's add the new values we got from the last scraping.
@@ -165,7 +165,7 @@ because in the final dataframe remain only dates of changes and the first occurr
 |  1 | 2022-02-28 | DOLLAR |     105 |           124 |
 |  2 | 2022-03-11 | DOLLAR |     113 |           127 |
 |  3 | 2022-02-21 | EURO   |      87 |           123 |
-|  4 | 2022-03-07 | EURO   |     139 |           125 |
+|  4 | 2022-03-06 | DOLLAR |     139 |           125 |
 |  5 | 2022-03-07 | EURO   |     148 |           125 |
 |  6 | 2022-03-11 | EURO   |     144 |           127 |
 
@@ -184,8 +184,8 @@ get_history_state(value_change_events_df, state_date='2022-03-07')
 ```
 |    | date                | key    |   value |   scraping_id |
 |---:|:--------------------|:-------|--------:|--------------:|
-|  1 | 2022-02-28 00:00:00 | DOLLAR |     105 |           124 |
-|  4 | 2022-03-07 00:00:00 | EURO   |     139 |           125 |
+|  1 | 2022-03-06 00:00:00 | DOLLAR |     139 |           124 |
+|  4 | 2022-03-07 00:00:00 | EURO   |     144 |           125 |
 
 ## Development
 
