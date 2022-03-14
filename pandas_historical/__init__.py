@@ -23,7 +23,9 @@ def make_value_change_events_df(
 
     prev_not_equal = pd.Series([False] * len(sorted_history_df))
     for column in value_columns:
-        prev_not_equal = prev_not_equal | (sorted_history_df[column] != sorted_history_df[column].shift(1))
+        prev_not_equal = prev_not_equal | (
+            sorted_history_df[column] != sorted_history_df[column].shift(1)
+        )
 
     return sorted_history_df[prev_not_equal].reset_index(drop=True)
 
@@ -31,7 +33,9 @@ def make_value_change_events_df(
 def update_value_change_events_df(
     value_change_events_df: pd.DataFrame, new_history_df: pd.DataFrame
 ):
-    return make_value_change_events_df(pd.concat([value_change_events_df, new_history_df]))
+    return make_value_change_events_df(
+        pd.concat([value_change_events_df, new_history_df])
+    )
 
 
 def get_historical_state(
@@ -41,16 +45,22 @@ def get_historical_state(
     date_column: str = "date",
 ):
     if state_date:
-        _value_change_events_df = value_change_events_df[value_change_events_df[date_column] <= state_date]
+        _value_change_events_df = value_change_events_df[
+            value_change_events_df[date_column] <= state_date
+        ]
     else:
         _value_change_events_df = value_change_events_df
 
     _value_change_events_df = _value_change_events_df.sort_values(date_column)
-    _value_change_events_df[date_column] = pd.to_datetime(_value_change_events_df[date_column])
+    _value_change_events_df[date_column] = pd.to_datetime(
+        _value_change_events_df[date_column]
+    )
     _value_change_events_df["__rank"] = (
         _value_change_events_df.groupby(key_column)[date_column]
         .rank(method="first", ascending=False)
         .astype(int)
     )
-    _value_change_events_df = _value_change_events_df[_value_change_events_df["__rank"] == 1]
+    _value_change_events_df = _value_change_events_df[
+        _value_change_events_df["__rank"] == 1
+    ]
     return _value_change_events_df[_value_change_events_df.columns[:-1]]
