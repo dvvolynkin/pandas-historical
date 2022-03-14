@@ -4,7 +4,10 @@
 [![codecov](https://codecov.io/gh/dvvolynkin/pandas-historical/branch/main/graph/badge.svg?token=pandas-historical_token_here)](https://codecov.io/gh/dvvolynkin/pandas-historical)
 [![CI](https://github.com/dvvolynkin/pandas-historical/actions/workflows/main.yml/badge.svg)](https://github.com/dvvolynkin/pandas-historical/actions/workflows/main.yml)
 
-Awesome pandas_historical created by dvvolynkin
+Library to store metrics or logs in a format where only the dates of value changes are stored.   
+This drastically reduces the space required to store historical values. 
+
+It also allows you to get a slice of the historical values for a certain date.
 
 ## Install it from PyPI
 
