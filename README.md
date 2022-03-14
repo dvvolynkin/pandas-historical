@@ -28,7 +28,13 @@ currencies_scraping = pd.DataFrame([
         'date': '2022-02-21',
         'key': 'EURO',
         'value': 87,
-        'scraping_id': 123
+        'scraping_id': 124
+    },
+    {
+        'date': '2022-02-22',
+        'key': 'DOLLAR',
+        'value': 78,
+        'scraping_id': 124
     },
     {
         'date': '2022-02-28',
@@ -55,9 +61,10 @@ currencies_scraping
 |---:|:-----------|:-------|--------:|--------------:|
 |  0 | 2022-02-21 | DOLLAR |      78 |           123 |
 |  1 | 2022-02-21 | EURO   |      87 |           123 |
-|  2 | 2022-02-28 | DOLLAR |     105 |           124 |
-|  3 | 2022-03-07 | EURO   |     139 |           125 |
-|  4 | 2022-03-07 | EURO   |     148 |           125 |
+|  2 | 2022-02-22 | DOLLAR |      78 |           124 |
+|  3 | 2022-02-28 | DOLLAR |     105 |           124 |
+|  4 | 2022-03-07 | EURO   |     139 |           125 |
+|  5 | 2022-03-07 | EURO   |     148 |           125 |
 
 ```python
 from pandas_historical import make_historical_df
