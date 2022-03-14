@@ -12,7 +12,7 @@ This drastically reduces the space required to store historical values.
 
 It also allows you to get a slice of the historical values for a certain date.
 
-[![compression example](https://ibb.co/VDbh1mm)](https://ibb.co/VDbh1mm)
+[![compression example](https://i.ibb.co/q9h4S55/image.png)](https://i.ibb.co/q9h4S55/image.png)
 
 ## Install it from PyPI
 
