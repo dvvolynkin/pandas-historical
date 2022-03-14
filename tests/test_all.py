@@ -3,9 +3,9 @@ import pytest
 from pandas import Timestamp
 
 from pandas_historical import (
-    make_historical_df,
-    update_historical_df,
-    get_history_state,
+    make_value_change_events_df,
+    update_value_change_events_df,
+    get_historical_state,
 )
 
 
@@ -44,7 +44,7 @@ def test_parameterized():
             },
         ]
     )
-    historical_df = make_historical_df(currencies_scraping)
+    historical_df = make_value_change_events_df(currencies_scraping)
     assert historical_df.to_dict() == {
         "date": {
             0: "2022-02-21",
@@ -75,7 +75,7 @@ def test_parameterized():
         ]
     )
 
-    historical_df = update_historical_df(historical_df, new_values)
+    historical_df = update_value_change_events_df(historical_df, new_values)
 
     assert historical_df.to_dict() == {
         "date": {
@@ -108,7 +108,7 @@ def test_parameterized():
         },
     }
 
-    assert get_history_state(
+    assert get_historical_state(
         historical_df, state_date="2022-03-10"
     ).to_dict() == {
         "date": {
@@ -120,7 +120,7 @@ def test_parameterized():
         "scraping_id": {1: 124, 4: 125},
     }
 
-    assert get_history_state(historical_df).to_dict() == {
+    assert get_historical_state(historical_df).to_dict() == {
         "date": {
             2: Timestamp("2022-03-11 00:00:00"),
             6: Timestamp("2022-03-11 00:00:00"),
